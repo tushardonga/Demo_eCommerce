@@ -4,6 +4,7 @@ import Login from "./Pages/Login/Login";
 import Signup from "./Pages/Singup/Signup";
 import { UserProvider } from "./Context/UserContext";
 import "react-toastify/dist/ReactToastify.css";
+import "rc-pagination/assets/index.css";
 
 function App() {
   return (
