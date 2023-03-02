@@ -44,9 +44,9 @@ const ProductsList = () => {
 
   return (
     <>
-      <div className="flex justify-between items-center my-4">
+      <div className="md:flex md:justify-between items-center my-4">
         {/* search bar */}
-        <div className="relative text-gray-600 focus-within:text-gray-400">
+        <div className="relative text-gray-600 focus-within:text-gray-400 my-2 md:my-0">
           <span className="absolute inset-y-0 left-0 flex items-center pl-2">
             <svg
               className="w-4 h-4"
@@ -73,7 +73,7 @@ const ProductsList = () => {
 
         {filteredProducts?.length > 0 ? (
           <>
-            <div className="text-center py-4">
+            <div className="py-4">
               <Pagination
                 onChange={onChange}
                 current={currentPage}
@@ -81,7 +81,7 @@ const ProductsList = () => {
                 pageSize={6}
               />
             </div>
-            <div>
+            <div className="my-4 md:my-0">
               <button onClick={() => sortProducts("price")} className="mr-4">
                 Sort by Price {sortKey === "price" && isSortAsc ? "↑" : "↓"}
               </button>
