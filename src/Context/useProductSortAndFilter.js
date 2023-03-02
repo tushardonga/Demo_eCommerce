@@ -10,6 +10,20 @@ export function useProductSortAndFilter() {
   const [currentPage, setCurrentPage] = useState(1);
   const [filteredProducts, setFilterdProducts] = useState(allProductsItem);
 
+  const sortedProducts = () => {
+    return filteredProducts.sort((a, b) => {
+      if (sortKey === "price") {
+        return isSortAsc ? a.price - b.price : b.price - a.price;
+      } else if (sortKey === "title") {
+        return isSortAsc
+          ? a.title.localeCompare(b.title)
+          : b.title.localeCompare(a.title);
+      } else {
+        return 0;
+      }
+    });
+  };
+
   const sortProducts = (key) => {
     if (key === sortKey) {
       setIsSortAsc(!isSortAsc);
@@ -21,27 +35,18 @@ export function useProductSortAndFilter() {
     setFilterdProducts(tempSortedItem);
   };
 
-  // const filteredProducts = products.filter((product) =>
-  //   product.title.toLowerCase().includes(filterText.toLowerCase())
-  // );
-
-  const sortedProducts = filteredProducts.sort((a, b) => {
-    if (sortKey === "price") {
-      return isSortAsc ? a.price - b.price : b.price - a.price;
-    } else if (sortKey === "title") {
-      return isSortAsc
-        ? a.title.localeCompare(b.title)
-        : b.title.localeCompare(a.title);
-    } else {
-      return 0;
-    }
-  });
+  const searchByFilterText = (filterText) => {
+    setFilterdProducts(
+      allProductsItem.filter((product) =>
+        product.title.toLowerCase().includes(filterText.toLowerCase())
+      )
+    );
+  };
 
   return {
     sortKey,
     isSortAsc,
-    filterText,
-    setFilterText,
+    searchByFilterText,
     sortProducts,
     filteredProducts,
     setFilterdProducts,
