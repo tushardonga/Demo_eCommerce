@@ -11,6 +11,8 @@ const Signup = () => {
     initialValues: { name: "", email: "", password: "", confirmPassword: "" },
     onSubmit: (values) => {
       setUser(values);
+      localStorage.setItem("user", JSON.stringify(values));
+      localStorage.setItem("isLogin", JSON.stringify(true));
       naviagte("/");
     },
     validationSchema: Yup.object().shape({
@@ -25,10 +27,12 @@ const Signup = () => {
   return (
     <div className="flex flex-col h-screen">
       <div className="h-1/4 bg-blue-600 flex items-center justify-center">
-        <h1 className="text-white font-bold text-5xl">Create an Account</h1>
+        <h1 className="text-white font-bold sm:text-5xl text-3xl">
+          Create an Account
+        </h1>
       </div>
-      <div className="h-3/ bg-gray-100 flex items-center justify-center">
-        <div className="bg-white p-10 rounded-lg shadow-md w-1/2">
+      <div className="h-3/4 bg-gray-100 flex items-center justify-center">
+        <div className="bg-white p-10 rounded-lg shadow-md sm:w-1/2 w-full">
           <form onSubmit={formik.handleSubmit}>
             <div className="mb-4">
               <label
@@ -129,6 +133,12 @@ const Signup = () => {
               >
                 Sign Up
               </button>
+              <span
+                className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800 cursor-pointer"
+                onClick={() => naviagte("/")}
+              >
+                Have an account? Login!
+              </span>
             </div>
           </form>
         </div>

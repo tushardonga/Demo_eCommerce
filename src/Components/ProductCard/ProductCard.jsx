@@ -10,7 +10,9 @@ const ProductCard = ({ product }) => {
       />
       <div className="px-4 py-3">
         <h2 className="text-lg font-semibold mb-2">{product.title}</h2>
-        <p className="text-gray-600 text-sm mb-4">{product.description}</p>
+        <p className="text-gray-600 text-sm mb-4">
+          {product.description.substring(0, 40)}...
+        </p>
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center">
             <div className="text-gray-700 font-bold text-sm">
@@ -30,13 +32,17 @@ const ProductCard = ({ product }) => {
             {product.rating} stars
           </div>
         </div>
-        <div className="bg-gray-100 px-4 py-2 rounded-lg">
-          <div className="text-gray-700 font-bold text-sm mb-1">Brand:</div>
-          <div className="text-gray-600 text-sm">{product.brand}</div>
-          <div className="text-gray-700 font-bold text-sm mt-2 mb-1">
-            Category:
+        <div className="bg-gray-100 px-4 py-2 rounded-lg md:flex md: justify-between">
+          <div>
+            <div className="text-gray-700 font-bold text-sm mb-1">Brand:</div>
+            <div className="text-gray-600 text-sm">{product.brand}</div>
           </div>
-          <div className="text-gray-600 text-sm">{product.category}</div>
+          <div>
+            <div className="text-gray-700 font-bold text-sm mt-2 mb-1">
+              Category:
+            </div>
+            <div className="text-gray-600 text-sm">{product.category}</div>
+          </div>
         </div>
       </div>
     </div>
