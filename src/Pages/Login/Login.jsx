@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useUser } from "../../Context/UserContext";
@@ -14,8 +14,9 @@ function Login() {
       const userDetials = user || JSON.parse(localStorage.getItem("user"));
       if (userDetials) {
         if (user.email === values.email && user.password === values.password) {
+          localStorage.setItem("isLogin", JSON.stringify(true));
           setIsLogin(true);
-          naviagte("/home");
+          setTimeout(() => naviagte("/home"), 100);
         } else if (user.email !== values.email) {
           toast.error("Invalid Email");
         } else if (user.password !== values.password) {
@@ -30,6 +31,10 @@ function Login() {
       password: Yup.string().required("Required"),
     }),
   });
+
+  useEffect(() => {
+    localStorage.setItem("isLogin", JSON.stringify(false));
+  }, []);
 
   return (
     <div className="flex flex-col h-screen">

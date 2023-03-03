@@ -1,8 +1,10 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useUser } from "../../Context/UserContext";
 
 const MenuList = () => {
   const naviagte = useNavigate();
+  const { setIsLogin } = useUser();
   return (
     <nav className="flex font-normal z-50 justify-between">
       <div className="cursor-pointer">LOGO</div>
@@ -12,6 +14,7 @@ const MenuList = () => {
         <span
           onClick={() => {
             localStorage.removeItem("isLogin");
+            setIsLogin(false);
             naviagte("/");
           }}
           className="cursor-pointer"
