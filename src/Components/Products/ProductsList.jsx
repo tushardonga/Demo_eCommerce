@@ -54,15 +54,12 @@ const ProductsList = () => {
       { label: "Phone", key: "brand" },
       { label: "Category", key: "category" },
     ];
-    let csvData = [];
-    if (filteredProducts?.lngth > 0) {
-      csvData = [
-        headers?.map((header) => header.label), // Add the header row
-        ...filteredProducts?.map((item) =>
-          headers.map((header) => item[header.key])
-        ), // Add the data rows
-      ];
-    }
+    const csvData = [
+      headers?.map((header) => header.label), // Add the header row
+      ...filteredProducts?.map((item) =>
+        headers.map((header) => item[header.key])
+      ), // Add the data rows
+    ];
 
     return (
       <CSVLink
@@ -108,7 +105,7 @@ const ProductsList = () => {
               <Pagination
                 onChange={onChange}
                 current={currentPage}
-                total={30}
+                total={allProductsItem.length}
                 pageSize={6}
               />
             </div>
