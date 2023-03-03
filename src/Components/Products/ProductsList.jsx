@@ -6,6 +6,7 @@ import { handlePagination } from "../../Utils/customFunction";
 import NoProductFound from "../NoData/NoProductFound";
 import SearchLogo from "../../Assets/svg/SearchLogo";
 import { CSVLink } from "react-csv";
+import { useNavigate } from "react-router-dom";
 
 const ProductsList = () => {
   const {
@@ -16,9 +17,11 @@ const ProductsList = () => {
     filteredProducts,
     setFilterdProducts,
     allProductsItem,
+    setAllProductsItem,
     currentPage,
     setCurrentPage,
   } = useProductSortAndFilter();
+  const navigate = useNavigate();
 
   useEffect(() => {
     let filterdData = handlePagination(currentPage, allProductsItem, 6);
@@ -45,29 +48,38 @@ const ProductsList = () => {
   }, [filterText]);
 
   const ExportCSV = () => {
-    // filteredProducts
     const headers = [
       { label: "Title", key: "title" },
       { label: "Email", key: "price" },
       { label: "Phone", key: "brand" },
       { label: "Category", key: "category" },
     ];
+    let csvData = [];
+    if (filteredProducts?.lngth > 0) {
+      csvData = [
+        headers?.map((header) => header.label), // Add the header row
+        ...filteredProducts?.map((item) =>
+          headers.map((header) => item[header.key])
+        ), // Add the data rows
+      ];
+    }
 
-    const csvData = [
-      headers.map((header) => header.label), // Add the header row
-      ...filteredProducts?.map((item) =>
-        headers.map((header) => item[header.key])
-      ), // Add the data rows
-    ];
     return (
       <CSVLink
-        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4"
+        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4"
         data={csvData}
         filename={"products.csv"}
       >
-        Export to CSV
+        EXPORT CSV
       </CSVLink>
     );
+  };
+
+  const removeProduct = (id) => {
+    let productsItem = allProductsItem.filter((item) => item.id !== id);
+    let filterdData = handlePagination(1, productsItem, 6);
+    setAllProductsItem(productsItem);
+    setFilterdProducts(filterdData);
   };
 
   return (
@@ -116,13 +128,20 @@ const ProductsList = () => {
         )}
       </div>
       <div className="text-end my-6">
-        <ExportCSV />
+        {filteredProducts && filteredProducts.length > 0 ? <ExportCSV /> : ""}
+
+        <button
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4 ml-2"
+          onClick={() => navigate("/create")}
+        >
+          ADD NEW
+        </button>
       </div>
       {filteredProducts?.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           {filteredProducts.map((product) => (
             <div key={product.id}>
-              <ProductCard product={product} />
+              <ProductCard product={product} removeProduct={removeProduct} />
             </div>
           ))}
         </div>

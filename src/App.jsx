@@ -1,15 +1,17 @@
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import Dashboard from "./Pages/Dashboard/Dashboard";
 import Login from "./Pages/Login/Login";
 import Signup from "./Pages/Singup/Signup";
-import { UserProvider } from "./Context/UserContext";
+import { useUser } from "./Context/UserContext";
 import "react-toastify/dist/ReactToastify.css";
 import "rc-pagination/assets/index.css";
 import { useEffect, useState } from "react";
+import Create from "./Pages/Product/Create";
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(() =>
-    JSON.parse(localStorage.getItem("isLogin"))
+  const { isLogin } = useUser();
+  const [isLoggedIn, setIsLoggedIn] = useState(
+    () => JSON.parse(localStorage.getItem("isLogin")) || isLogin
   );
 
   useEffect(() => {
@@ -18,16 +20,18 @@ function App() {
 
   return (
     <div>
-      <UserProvider>
-        <Routes>
-          <Route path="/" element={<Login />} />
-          <Route
-            path="/home"
-            element={isLoggedIn ? <Dashboard /> : <Login />}
-          />
-          <Route path="/signup" element={<Signup />} />
-        </Routes>
-      </UserProvider>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route
+          path="/home"
+          element={isLoggedIn ? <Dashboard /> : <Navigate replace to={"/"} />}
+        />
+        <Route
+          path="/create"
+          element={isLoggedIn ? <Create /> : <Navigate replace to={"/"} />}
+        />
+        <Route path="/signup" element={<Signup />} />
+      </Routes>
     </div>
   );
 }
