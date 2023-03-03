@@ -4,6 +4,8 @@ import { useProductSortAndFilter } from "../../Context/useProductSortAndFilter";
 import ProductCard from "../ProductCard/ProductCard";
 import { handlePagination } from "../../Utils/customFunction";
 import NoProductFound from "../NoData/NoProductFound";
+import SearchLogo from "../../Assets/svg/SearchLogo";
+import { CSVLink } from "react-csv";
 
 const ProductsList = () => {
   const {
@@ -42,23 +44,39 @@ const ProductsList = () => {
     return () => clearTimeout(searchTimeout);
   }, [filterText]);
 
+  const ExportCSV = () => {
+    // filteredProducts
+    const headers = [
+      { label: "Title", key: "title" },
+      { label: "Email", key: "price" },
+      { label: "Phone", key: "brand" },
+      { label: "Category", key: "category" },
+    ];
+
+    const csvData = [
+      headers.map((header) => header.label), // Add the header row
+      ...filteredProducts?.map((item) =>
+        headers.map((header) => item[header.key])
+      ), // Add the data rows
+    ];
+    return (
+      <CSVLink
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4"
+        data={csvData}
+        filename={"products.csv"}
+      >
+        Export to CSV
+      </CSVLink>
+    );
+  };
+
   return (
     <>
       <div className="md:flex md:justify-between items-center my-4">
         {/* search bar */}
         <div className="relative text-gray-600 focus-within:text-gray-400 my-2 md:my-0">
           <span className="absolute inset-y-0 left-0 flex items-center pl-2">
-            <svg
-              className="w-4 h-4"
-              viewBox="0 0 16 16"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M15.7071 14.2929C16.0976 13.9024 16.0976 13.2692 15.7071 12.8787L12.1213 9.29289C11.7308 8.90237 11.0976 8.90237 10.7071 9.29289C10.3166 9.68342 10.3166 10.3166 10.7071 10.7071L14.2929 14.2929C14.6834 14.6834 15.3166 14.6834 15.7071 14.2929ZM6.5 12C8.98528 12 11 9.98528 11 7.5C11 5.01472 8.98528 3 6.5 3C4.01472 3 2 5.01472 2 7.5C2 9.98528 4.01472 12 6.5 12Z"
-                fill="currentColor"
-              />
-            </svg>
+            <SearchLogo />
           </span>
           <input
             className="py-2 pl-10 text-sm text-gray-700 bg-gray-200 rounded-md focus:outline-none focus:bg-white focus:text-gray-900"
@@ -73,6 +91,7 @@ const ProductsList = () => {
 
         {filteredProducts?.length > 0 ? (
           <>
+            {/* pagination  */}
             <div className="py-4">
               <Pagination
                 onChange={onChange}
@@ -81,6 +100,8 @@ const ProductsList = () => {
                 pageSize={6}
               />
             </div>
+
+            {/* sorting  */}
             <div className="my-4 md:my-0">
               <button onClick={() => sortProducts("price")} className="mr-4">
                 Sort by Price {sortKey === "price" && isSortAsc ? "↑" : "↓"}
@@ -94,7 +115,9 @@ const ProductsList = () => {
           ""
         )}
       </div>
-
+      <div className="text-end my-6">
+        <ExportCSV />
+      </div>
       {filteredProducts?.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           {filteredProducts.map((product) => (

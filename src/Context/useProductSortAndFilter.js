@@ -1,12 +1,10 @@
-import { useEffect, useState } from "react";
-import { handlePagination } from "../Utils/customFunction";
+import { useState } from "react";
 import { Products } from "../Utils/data";
 
 export function useProductSortAndFilter() {
   const allProductsItem = Products;
   const [sortKey, setSortKey] = useState(null);
   const [isSortAsc, setIsSortAsc] = useState(true);
-  const [filterText, setFilterText] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [filteredProducts, setFilterdProducts] = useState(allProductsItem);
 
