@@ -2,11 +2,11 @@ import { useState } from "react";
 import { Products } from "../Utils/data";
 
 export function useProductSortAndFilter() {
-  const allProductsItem = Products;
+  const [allProductsItem, setAllProductsItem] = useState(Products);
   const [sortKey, setSortKey] = useState(null);
   const [isSortAsc, setIsSortAsc] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
-  const [filteredProducts, setFilterdProducts] = useState(allProductsItem);
+  const [filteredProducts, setFilterdProducts] = useState(Products);
 
   const sortedProducts = () => {
     return filteredProducts.sort((a, b) => {
@@ -49,6 +49,7 @@ export function useProductSortAndFilter() {
     filteredProducts,
     setFilterdProducts,
     allProductsItem,
+    setAllProductsItem,
     currentPage,
     setCurrentPage,
   };
