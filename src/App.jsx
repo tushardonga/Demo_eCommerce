@@ -16,7 +16,8 @@ function App() {
 
   useEffect(() => {
     localStorage.setItem("isLogin", JSON.stringify(true));
-  }, [isLoggedIn]);
+    setIsLoggedIn(isLogin);
+  }, [isLoggedIn, isLogin]);
 
   return (
     <div>
