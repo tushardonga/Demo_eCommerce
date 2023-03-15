@@ -7,7 +7,7 @@ const Create = () => {
     <Layout>
       <div className="my-[71px] sm:mt-[83px] lg:mt-[102px]">
         <div className="flex items-center justify-center bg-white  border-b border-gray-200">
-          <h1 className="text-2xl font-bold">Add Product</h1>
+          <h1 className="text-4xl font-bold my-4">Add Product</h1>
         </div>
         <AddProduct />
       </div>
