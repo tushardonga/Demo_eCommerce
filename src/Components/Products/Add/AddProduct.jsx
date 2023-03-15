@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import * as Yup from "yup";
 import BackIcon from "../../../Assets/svg/BackIcon";
 import { Products } from "../../../Utils/data";
+import Label from "../../Common/Label";
 
 const AddProduct = () => {
   const naviagte = useNavigate();
@@ -45,12 +46,7 @@ const AddProduct = () => {
       <div className="bg-gray-100 p-10">
         <form onSubmit={formik.handleSubmit}>
           <div className="mb-4">
-            <label
-              htmlFor="title"
-              className="block text-gray-700 font-bold mb-2"
-            >
-              Title
-            </label>
+            <Label htmlFor="title" labelText="Title" />
             <input
               id="title"
               type="text"
@@ -68,12 +64,7 @@ const AddProduct = () => {
             ) : null}
           </div>
           <div className="mb-4">
-            <label
-              htmlFor="price"
-              className="block text-gray-700 font-bold mb-2"
-            >
-              Price
-            </label>
+            <Label htmlFor="price" labelText="Price" />
             <input
               id="price"
               type="number"
@@ -91,12 +82,7 @@ const AddProduct = () => {
             ) : null}
           </div>
           <div className="mb-4">
-            <label
-              htmlFor="description"
-              className="block text-gray-700 font-bold mb-2"
-            >
-              Description
-            </label>
+            <Label htmlFor="description" labelText="Description" />
             <textarea
               id="description"
               className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
@@ -113,12 +99,7 @@ const AddProduct = () => {
             ) : null}
           </div>
           <div className="mb-4">
-            <label
-              htmlFor="brand"
-              className="block text-gray-700 font-bold mb-2"
-            >
-              Brand
-            </label>
+            <Label htmlFor="brand" labelText="Brand" />
             <input
               id="brand"
               type="text"
@@ -136,12 +117,7 @@ const AddProduct = () => {
             ) : null}
           </div>
           <div className="mb-4">
-            <label
-              htmlFor="category"
-              className="block text-gray-700 font-bold mb-2"
-            >
-              category
-            </label>
+            <Label htmlFor="category" labelText="Category" />
             <input
               id="category"
               type="text"
@@ -158,12 +134,14 @@ const AddProduct = () => {
               </div>
             ) : null}
           </div>
-          <button
-            type="submit"
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-          >
-            Add
-          </button>
+          <div className="flex justify-center">
+            <button
+              type="submit"
+              className="border border-gray-900 bg-white hover:bg-gray-900 text-gray-900 hover:text-white font-bold py-2 px-8 rounded mt-4"
+            >
+              Add
+            </button>
+          </div>
         </form>
       </div>
     </div>

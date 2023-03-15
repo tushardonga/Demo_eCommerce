@@ -63,7 +63,7 @@ const ProductsList = () => {
 
     return (
       <CSVLink
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4"
+        className="border border-gray-900 bg-white hover:bg-gray-900 text-gray-900 hover:text-white font-bold py-2 px-4 rounded"
         data={csvData}
         filename={"products.csv"}
       >
@@ -81,6 +81,22 @@ const ProductsList = () => {
 
   return (
     <>
+      <div className="my-8 sm:my-6 sm:flex items-center md:justify-end sm:justify-start">
+        {filteredProducts && filteredProducts.length > 0 ? (
+          <div>
+            <ExportCSV />
+          </div>
+        ) : (
+          ""
+        )}
+
+        <button
+          className="border border-gray-900 bg-white hover:bg-gray-900 text-gray-900 hover:text-white font-bold py-2 px-4 rounded mt-4 sm:mt-0 sm:ml-2"
+          onClick={() => navigate("/create")}
+        >
+          ADD NEW
+        </button>
+      </div>
       <div className="md:flex md:justify-between items-center my-4">
         {/* search bar */}
         <div className="relative text-gray-600 focus-within:text-gray-400 my-2 md:my-0">
@@ -124,16 +140,7 @@ const ProductsList = () => {
           ""
         )}
       </div>
-      <div className="text-end my-6">
-        {filteredProducts && filteredProducts.length > 0 ? <ExportCSV /> : ""}
 
-        <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4 ml-2"
-          onClick={() => navigate("/create")}
-        >
-          ADD NEW
-        </button>
-      </div>
       {filteredProducts?.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           {filteredProducts.map((product) => (
