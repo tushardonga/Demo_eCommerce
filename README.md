@@ -1,6 +1,10 @@
-# Getting Started with Create React App
+# Basic-eCommerce-page
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+It's design with [tailwind css](https://tailwindcss.com/) it have static product. You can add, filter, sort, search the product and after that you also export the data of product as csv. it have static login and register page.
+
+You can check out live demo in link given below : 
+### https://demo-practical.vercel.app/ 
 
 ## Available Scripts
 
