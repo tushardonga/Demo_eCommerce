@@ -15,7 +15,8 @@ function Login() {
     onSubmit: (values) => {
       const userDetials = user || JSON.parse(localStorage.getItem("user"));
       if (userDetials) {
-        if (values.email === "demo@email.com" && values.password === "demo") {
+        if ((values.email === "demo@email.com", values.password === "demo")) {
+          localStorage.setItem("isLogin", JSON.stringify(true));
           setIsLogin(true);
           setTimeout(() => naviagte("/home"), 100);
         } else {
