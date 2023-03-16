@@ -14,11 +14,12 @@ function Login() {
     initialValues: { email: "", password: "" },
     onSubmit: (values) => {
       const userDetials = user || JSON.parse(localStorage.getItem("user"));
-      if (userDetials) {
-        if (values.email === "demo@email.com" && values.password === "demo") {
-          setIsLogin(true);
-          setTimeout(() => naviagte("/home"), 100);
-        } else {
+      if ((values.email === "demo@email.com", values.password === "demo")) {
+        localStorage.setItem("isLogin", JSON.stringify(true));
+        setIsLogin(true);
+        setTimeout(() => naviagte("/home"), 100);
+      } else {
+        if (userDetials) {
           if (
             user.email === values.email &&
             user.password === values.password
@@ -31,9 +32,9 @@ function Login() {
           } else if (user.password !== values.password) {
             toast.error("Invalid Password");
           }
+        } else {
+          toast("No User Found");
         }
-      } else {
-        toast("No User Found");
       }
     },
     validationSchema: Yup.object().shape({
